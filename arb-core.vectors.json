@@ -1,0 +1,4617 @@
+{
+ "generatedBy": "test/dump-vectors.js",
+ "roundDp": 6,
+ "vectors": [
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.01,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.000693
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.005152
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.008925
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.22,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.012012
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.29,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.014413
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.36,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.016128
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.43,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.017157
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.0175
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.57,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.017157
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.64,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.016128
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.71,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.014413
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.78,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.012012
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.008925
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.005152
+  },
+  {
+   "fn": "takerFeePerShare",
+   "input": {
+    "price": 0.99,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.000693
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.957256
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.962744
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.893476
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.906524
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.819703
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.840297
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.633151
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.666849
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.481156
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.518844
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.471135
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.508865
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.461128
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.498872
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.441156
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.478844
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.293151
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.326849
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.119703
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.140297
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.053476
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.066524
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.02,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.006591
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.02,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.013409
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.893476
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.906524
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.829696
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.850304
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.755923
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.784077
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.569371
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.610629
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.417376
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.462624
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.407355
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.452645
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.397348
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.442652
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.377376
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.422624
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.229371
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.270629
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.055923
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.084077
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.010304
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.010304
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.08,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.057189
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.08,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.042811
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.819703
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.840297
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.755923
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.784077
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.68215
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.71785
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.495598
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.544402
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.343603
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.396397
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.333582
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.386418
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.323575
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.376425
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.303603
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.356397
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.155598
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.204402
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.01785
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.01785
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.084077
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.055923
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.15,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.130962
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.15,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.109038
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.633151
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.666849
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.569371
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.610629
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.495598
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.544402
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.309046
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.370954
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.157051
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.222949
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.14703
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.21297
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.137023
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.202977
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.117051
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.182949
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.030954
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.030954
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.204402
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.155598
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.270629
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.229371
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.33,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.317514
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.33,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.282486
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.481156
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.518844
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.417376
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.462624
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.343603
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.396397
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.157051
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.222949
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.005056
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.074944
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.004965
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.064965
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.014972
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.054972
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.034944
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.034944
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.182949
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.117051
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.356397
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.303603
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.422624
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.377376
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.48,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.469509
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.48,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.430491
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.471135
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.508865
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.407355
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.452645
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.333582
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.386418
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.14703
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.21297
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.004965
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.064965
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.014986
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.054986
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.024993
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.044993
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.044965
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.024965
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.19297
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.12703
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.366418
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.313582
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.432645
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.387355
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.49,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.47953
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.49,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.44047
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.461128
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.498872
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.397348
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.442652
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.323575
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.376425
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.137023
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.202977
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.014972
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.054972
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.024993
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.044993
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.035
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.035
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.054972
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.014972
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.202977
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.137023
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.376425
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.323575
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.442652
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.397348
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.5,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.489537
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.5,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.450463
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.441156
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.478844
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.377376
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.422624
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.303603
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.356397
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.117051
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.182949
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.034944
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.034944
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.044965
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.024965
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.054972
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.014972
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.074944
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.005056
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.222949
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.157051
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.396397
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.343603
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.462624
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.417376
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.52,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.509509
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.52,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.470491
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.293151
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.326849
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.229371
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.270629
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.155598
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.204402
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.030954
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.030954
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.182949
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.117051
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.19297
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.12703
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.202977
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.137023
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.222949
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.157051
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.370954
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.309046
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.544402
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.495598
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.610629
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.569371
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.67,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.657514
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.67,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.622486
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.119703
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.140297
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.055923
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.084077
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.01785
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.01785
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.204402
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.155598
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.356397
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.303603
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.366418
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.313582
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.376425
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.323575
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.396397
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.343603
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.544402
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.495598
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.71785
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.68215
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.784077
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.755923
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.85,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.830962
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.85,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.809038
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.053476
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.066524
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.010304
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.010304
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.084077
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.055923
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.270629
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.229371
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.422624
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.377376
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.432645
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.387355
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.442652
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.397348
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.462624
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.417376
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.610629
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.569371
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.784077
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.755923
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.850304
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.829696
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.92,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.897189
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.92,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.882811
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.006591
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.02,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.013409
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.057189
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.08,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.042811
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.130962
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.15,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.109038
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.317514
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.33,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.282486
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.469509
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.48,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.430491
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.47953
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.49,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.44047
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.489537
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.5,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.450463
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.509509
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.52,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.470491
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.657514
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.67,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.622486
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.830962
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.85,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.809038
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.897189
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.92,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.882811
+  },
+  {
+   "fn": "buyEdgePerShare",
+   "input": {
+    "askUp": 0.97,
+    "askDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": -0.944074
+  },
+  {
+   "fn": "sellEdgePerShare",
+   "input": {
+    "bidUp": 0.97,
+    "bidDown": 0.97,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    }
+   },
+   "expect": 0.935926
+  },
+  {
+   "fn": "clipShares",
+   "input": {
+    "baseShares": 5,
+    "minOrderSize": 5,
+    "priceUp": 0.49,
+    "priceDown": 0.48,
+    "depthUp": 50,
+    "depthDown": 50,
+    "maxUsdc": 10
+   },
+   "expect": 5
+  },
+  {
+   "fn": "clipShares",
+   "input": {
+    "baseShares": 5,
+    "minOrderSize": 5,
+    "priceUp": 0.9,
+    "priceDown": 0.08,
+    "depthUp": 50,
+    "depthDown": 50,
+    "maxUsdc": 20
+   },
+   "expect": 13
+  },
+  {
+   "fn": "clipShares",
+   "input": {
+    "baseShares": 5,
+    "minOrderSize": 5,
+    "priceUp": 0.9,
+    "priceDown": 0.08,
+    "depthUp": 50,
+    "depthDown": 9,
+    "maxUsdc": 20
+   },
+   "expect": 0
+  },
+  {
+   "fn": "clipShares",
+   "input": {
+    "baseShares": 5,
+    "minOrderSize": 5,
+    "priceUp": 0.49,
+    "priceDown": 0.48,
+    "depthUp": 50,
+    "depthDown": 50,
+    "maxUsdc": 4
+   },
+   "expect": 0
+  },
+  {
+   "fn": "clipShares",
+   "input": {
+    "baseShares": 2,
+    "minOrderSize": 5,
+    "priceUp": 0.49,
+    "priceDown": 0.48,
+    "depthUp": 50,
+    "depthDown": 50,
+    "maxUsdc": 10
+   },
+   "expect": 5
+  },
+  {
+   "fn": "clipShares",
+   "input": {
+    "baseShares": 5,
+    "minOrderSize": 5,
+    "priceUp": 0.92,
+    "priceDown": 0.12,
+    "depthUp": 50,
+    "depthDown": 50,
+    "maxUsdc": 10,
+    "usdcPerShare": 1
+   },
+   "expect": 9
+  },
+  {
+   "fn": "clipShares",
+   "input": {
+    "baseShares": 5,
+    "minOrderSize": 5,
+    "priceUp": 0.94,
+    "priceDown": 0.09,
+    "depthUp": 50,
+    "depthDown": 50,
+    "maxUsdc": 10,
+    "usdcPerShare": 1
+   },
+   "expect": 0
+  },
+  {
+   "fn": "evaluatePair",
+   "input": {
+    "askUpSize": 50,
+    "askDownSize": 50,
+    "bidUpSize": 50,
+    "bidDownSize": 50,
+    "bookTsUpMs": 10000,
+    "bookTsDownMs": 10000,
+    "windowEndMs": 310000,
+    "nowMs": 10100,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    },
+    "minOrderSize": 5,
+    "askUp": 0.1,
+    "askDown": 0.85,
+    "bidUp": 0.09,
+    "bidDown": 0.84
+   },
+   "cfg": {
+    "buySum": 0.985,
+    "sellSum": 1.015,
+    "shares": 5,
+    "maxActiveUsdc": 10,
+    "minTauSec": 20,
+    "freshnessMs": 1000,
+    "minDepth": 5,
+    "priceBandMin": 0.01,
+    "priceBandMax": 0.99
+   },
+   "expect": {
+    "buy": {
+     "ok": true,
+     "reasons": [],
+     "edge": 0.034775,
+     "feeAdjSum": 0.965225,
+     "rawSum": 0.95,
+     "clip": 10
+    },
+    "sell": {
+     "ok": false,
+     "reasons": [
+      "no-edge",
+      "clip"
+     ],
+     "edge": -0.085141,
+     "feeAdjSum": 0.914859,
+     "rawSum": 0.93,
+     "clip": 0
+    },
+    "tauSec": 299.9
+   }
+  },
+  {
+   "fn": "evaluatePair",
+   "input": {
+    "askUpSize": 50,
+    "askDownSize": 50,
+    "bidUpSize": 50,
+    "bidDownSize": 50,
+    "bookTsUpMs": 10000,
+    "bookTsDownMs": 10000,
+    "windowEndMs": 310000,
+    "nowMs": 10100,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    },
+    "minOrderSize": 5,
+    "askUp": 0.49,
+    "askDown": 0.48,
+    "bidUp": 0.48,
+    "bidDown": 0.47
+   },
+   "cfg": {
+    "buySum": 0.985,
+    "sellSum": 1.015,
+    "shares": 5,
+    "maxActiveUsdc": 10,
+    "minTauSec": 20,
+    "freshnessMs": 1000,
+    "minDepth": 5,
+    "priceBandMin": 0.01,
+    "priceBandMax": 0.99
+   },
+   "expect": {
+    "buy": {
+     "ok": false,
+     "reasons": [
+      "no-edge"
+     ],
+     "edge": -0.004965,
+     "feeAdjSum": 1.004965,
+     "rawSum": 0.97,
+     "clip": 5
+    },
+    "sell": {
+     "ok": false,
+     "reasons": [
+      "no-edge"
+     ],
+     "edge": -0.084909,
+     "feeAdjSum": 0.915091,
+     "rawSum": 0.95,
+     "clip": 5
+    },
+    "tauSec": 299.9
+   }
+  },
+  {
+   "fn": "evaluatePair",
+   "input": {
+    "askUpSize": 50,
+    "askDownSize": 50,
+    "bidUpSize": 50,
+    "bidDownSize": 50,
+    "bookTsUpMs": 10000,
+    "bookTsDownMs": 10000,
+    "windowEndMs": 310000,
+    "nowMs": 10100,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    },
+    "minOrderSize": 5,
+    "askUp": 0.995,
+    "askDown": 0.001,
+    "bidUp": 0.99,
+    "bidDown": 0.001
+   },
+   "cfg": {
+    "buySum": 0.985,
+    "sellSum": 1.015,
+    "shares": 5,
+    "maxActiveUsdc": 10,
+    "minTauSec": 20,
+    "freshnessMs": 1000,
+    "minDepth": 5,
+    "priceBandMin": 0.01,
+    "priceBandMax": 0.99
+   },
+   "expect": {
+    "buy": {
+     "ok": false,
+     "reasons": [
+      "no-edge",
+      "price-band",
+      "clip"
+     ],
+     "edge": 0.003582,
+     "feeAdjSum": 0.996418,
+     "rawSum": 0.996,
+     "clip": 0
+    },
+    "sell": {
+     "ok": false,
+     "reasons": [
+      "no-edge",
+      "price-band",
+      "clip"
+     ],
+     "edge": -0.009763,
+     "feeAdjSum": 0.990237,
+     "rawSum": 0.991,
+     "clip": 0
+    },
+    "tauSec": 299.9
+   }
+  },
+  {
+   "fn": "evaluatePair",
+   "input": {
+    "askUpSize": 50,
+    "askDownSize": 50,
+    "bidUpSize": 50,
+    "bidDownSize": 50,
+    "bookTsUpMs": 10000,
+    "bookTsDownMs": 10000,
+    "windowEndMs": 310000,
+    "nowMs": 10100,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    },
+    "minOrderSize": 5,
+    "askUp": 0.5,
+    "askDown": 0.5,
+    "bidUp": 0.92,
+    "bidDown": 0.12
+   },
+   "cfg": {
+    "buySum": 0.985,
+    "sellSum": 1.015,
+    "shares": 5,
+    "maxActiveUsdc": 10,
+    "minTauSec": 20,
+    "freshnessMs": 1000,
+    "minDepth": 5,
+    "priceBandMin": 0.01,
+    "priceBandMax": 0.99
+   },
+   "expect": {
+    "buy": {
+     "ok": false,
+     "reasons": [
+      "no-edge"
+     ],
+     "edge": -0.035,
+     "feeAdjSum": 1.035,
+     "rawSum": 1,
+     "clip": 5
+    },
+    "sell": {
+     "ok": true,
+     "reasons": [],
+     "edge": 0.027456,
+     "feeAdjSum": 1.027456,
+     "rawSum": 1.04,
+     "clip": 9
+    },
+    "tauSec": 299.9
+   }
+  },
+  {
+   "fn": "evaluatePair",
+   "input": {
+    "askUpSize": 50,
+    "askDownSize": 50,
+    "bidUpSize": 50,
+    "bidDownSize": 50,
+    "bookTsUpMs": 10000,
+    "bookTsDownMs": 10000,
+    "windowEndMs": 310000,
+    "nowMs": 10100,
+    "feeSchedule": {
+     "exponent": 1,
+     "rate": 0.07,
+     "takerOnly": true,
+     "rebateRate": 0.2
+    },
+    "minOrderSize": 5,
+    "askUp": 0.5,
+    "askDown": 0.5,
+    "bidUp": 0.52,
+    "bidDown": 0.5
+   },
+   "cfg": {
+    "buySum": 0.985,
+    "sellSum": 1.015,
+    "shares": 5,
+    "maxActiveUsdc": 10,
+    "minTauSec": 20,
+    "freshnessMs": 1000,
+    "minDepth": 5,
+    "priceBandMin": 0.01,
+    "priceBandMax": 0.99
+   },
+   "expect": {
+    "buy": {
+     "ok": false,
+     "reasons": [
+      "no-edge"
+     ],
+     "edge": -0.035,
+     "feeAdjSum": 1.035,
+     "rawSum": 1,
+     "clip": 5
+    },
+    "sell": {
+     "ok": false,
+     "reasons": [
+      "no-edge"
+     ],
+     "edge": -0.014972,
+     "feeAdjSum": 0.985028,
+     "rawSum": 1.02,
+     "clip": 5
+    },
+    "tauSec": 299.9
+   }
+  }
+ ]
+}

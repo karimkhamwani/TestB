@@ -1,0 +1,19 @@
+{
+  "name": "arb-bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Bi-directional arbitrage bot for Polymarket crypto up/down markets — Phase 0 observer",
+  "scripts": {
+    "arb": "node arb-bot.js",
+    "observe": "node arb-bot.js --observe",
+    "dashboard": "node dashboard-server.js",
+    "test": "node --test",
+    "vectors": "node test/dump-vectors.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

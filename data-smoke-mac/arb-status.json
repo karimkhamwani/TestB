@@ -1,0 +1,120 @@
+{
+ "t": 1788206948382,
+ "mode": "observe",
+ "phase": 0,
+ "engine": "node",
+ "feedMode": "rest-poll",
+ "uptimeSec": 433,
+ "ws": {
+  "connected": false,
+  "assets": 30,
+  "restPoll": true
+ },
+ "series": {
+  "btc-updown-5m": {
+   "window": "btc-updown-5m-1788206700",
+   "windowEndsInSec": 52,
+   "bookAgeMsUp": 659,
+   "bookAgeMsDown": 409,
+   "feeRate": 0.07
+  },
+  "eth-updown-5m": {
+   "window": "eth-updown-5m-1788206700",
+   "windowEndsInSec": 52,
+   "bookAgeMsUp": 288,
+   "bookAgeMsDown": 155,
+   "feeRate": 0.07
+  },
+  "sol-updown-5m": {
+   "window": "sol-updown-5m-1788206700",
+   "windowEndsInSec": 52,
+   "bookAgeMsUp": 36,
+   "bookAgeMsDown": 1031,
+   "feeRate": 0.07
+  },
+  "xrp-updown-5m": {
+   "window": "xrp-updown-5m-1788206700",
+   "windowEndsInSec": 52,
+   "bookAgeMsUp": 912,
+   "bookAgeMsDown": 386,
+   "feeRate": 0.07
+  },
+  "doge-updown-5m": {
+   "window": "doge-updown-5m-1788206700",
+   "windowEndsInSec": 52,
+   "bookAgeMsUp": 253,
+   "bookAgeMsDown": 122,
+   "feeRate": 0.07
+  },
+  "btc-updown-15m": {
+   "window": "btc-updown-15m-1788206400",
+   "windowEndsInSec": 352,
+   "bookAgeMsUp": 6,
+   "bookAgeMsDown": 1212,
+   "feeRate": 0.07
+  },
+  "eth-updown-15m": {
+   "window": "eth-updown-15m-1788206400",
+   "windowEndsInSec": 352,
+   "bookAgeMsUp": 1007,
+   "bookAgeMsDown": 703,
+   "feeRate": 0.07
+  },
+  "sol-updown-15m": {
+   "window": "sol-updown-15m-1788206400",
+   "windowEndsInSec": 352,
+   "bookAgeMsUp": 73,
+   "bookAgeMsDown": 1492,
+   "feeRate": 0.07
+  },
+  "xrp-updown-15m": {
+   "window": "xrp-updown-15m-1788206400",
+   "windowEndsInSec": 352,
+   "bookAgeMsUp": 1371,
+   "bookAgeMsDown": 1238,
+   "feeRate": 0.07
+  },
+  "doge-updown-15m": {
+   "window": "doge-updown-15m-1788206400",
+   "windowEndsInSec": 352,
+   "bookAgeMsUp": 1114,
+   "bookAgeMsDown": 986,
+   "feeRate": 0.07
+  }
+ },
+ "counters": {
+  "buyEvents": 3,
+  "sellEvents": 5,
+  "buyGateEvents": 3,
+  "sellGateEvents": 5,
+  "samples": 4287,
+  "rejects": {
+   "no-edge": 8195,
+   "depth": 313,
+   "clip": 651,
+   "tau": 50
+  }
+ },
+ "openEvents": [],
+ "gate": {
+  "target": 20,
+  "observedInHorizon": {
+   "buy": 3,
+   "sell": 5
+  },
+  "horizonHours": 0.12,
+  "projectedPerDay": {
+   "buy": 599.2,
+   "sell": 998.7
+  },
+  "pass": {
+   "buy": true,
+   "sell": true
+  }
+ },
+ "alerts": {
+  "wsDown": true,
+  "maintenanceWindow": false,
+  "restPollMode": true
+ }
+}
