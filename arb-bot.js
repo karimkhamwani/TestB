@@ -3,18 +3,24 @@
 
 // arb-bot.js — supervisor for the bi-directional pair arb (plan §4).
 //
-// Phase 0 build: ONLY the observer exists. Live mode intentionally refuses to
-// start — per the plan, "nothing gets built past the observer until the
-// observer proves the opportunities exist net of fees." Run:
+// Modes:
+//   --observe  Phase 0 recorder only (no orders, no keys needed)
+//   --dry      Phase 1 executor against a PAPER venue (simulated FAK fills
+//              from the live books; optimistic — see lib/venue.js)
+//   --live     REAL ORDERS. Requires POLY_PRIVATE_KEY (+ proxy funder) in .env
+//              AND ARB_LIVE_CONFIRM=yes. Start at ARB_MAX_ACTIVE_USDC=10 only
+//              after a clean dry week (plan §5 Phase 1 / §8b item 5).
 //
-//   npm run arb -- --observe        (equivalently: ARB_MODE=observe npm run arb)
-//
+// The observer keeps recording in every mode — it is the gate instrument.
 // Standalone script by design: never under pm2 / npm run up.
 
 const { parseConfig } = require('./lib/config');
 const gamma = require('./lib/gamma');
 const { BookFeed } = require('./lib/books');
 const { Observer } = require('./lib/observer');
+const { PairLedger } = require('./lib/ledger');
+const { Trader } = require('./lib/trader');
+const { PaperVenue, LiveVenue } = require('./lib/venue');
 
 function log(...args) {
   console.log(new Date().toISOString(), ...args);
@@ -23,16 +29,25 @@ function log(...args) {
 async function main() {
   const cfg = parseConfig({});
 
-  if (cfg.mode !== 'observe') {
-    console.error(
-      'ARB_MODE=live refused: Phase 1 executor is not built yet.\n' +
-      'The Phase 0 gate (>= ' + cfg.observer.gateEventsPerDay + ' fee-adjusted, depth-backed events/day, ' +
-      '>= ' + cfg.observer.minEventMs + 'ms duration) must pass first — run --observe for 2-3 days ' +
-      'on the Windows box and read the dashboard Arb tab.');
-    process.exit(1);
+  if (cfg.mode === 'live') {
+    if (!cfg.trader.liveConfirm) {
+      console.error(
+        'ARB_MODE=live refused: set ARB_LIVE_CONFIRM=yes to arm real orders.\n' +
+        'Live is meant to follow a clean DRY week at the $' + cfg.detector.maxActiveUsdc +
+        ' cap (plan §5 Phase 1); run --dry first and reconcile (node reconcile.js) before arming.');
+      process.exit(1);
+    }
+    if (!process.env.POLY_PRIVATE_KEY) {
+      console.error('ARB_MODE=live refused: POLY_PRIVATE_KEY is not set (put it in .env on the trading box).');
+      process.exit(1);
+    }
   }
 
-  log(`observer starting: ${cfg.series.length} series, data -> ${cfg.dataDir}`);
+  log(`starting mode=${cfg.mode}: ${cfg.series.length} series, data -> ${cfg.dataDir}`);
+  if (cfg.mode !== 'observe') {
+    log(`caps: $${cfg.detector.maxActiveUsdc} active, ${cfg.trader.maxPairsPerWindow} pairs/window, ` +
+        `clip base ${cfg.detector.shares}, feeRateBps ${cfg.trader.feeRateBps}, rearm ${cfg.trader.rearmMs}ms`);
+  }
   log(`gate: >= ${cfg.observer.gateEventsPerDay} events/day of >= ${cfg.observer.minEventMs}ms with ` +
       `${cfg.detector.minDepth}x${cfg.detector.minDepth} depth, buySum<=${cfg.detector.buySum}, sellSum>=${cfg.detector.sellSum}`);
 
@@ -42,6 +57,29 @@ async function main() {
   let feedState = { connected: false, assets: 0 };
   let wsEverConnected = false;
 
+  // ---- Phase 1 trading path (dry/live) ----
+  let trader = null;
+  let ledger = null;
+  if (cfg.mode !== 'observe') {
+    ledger = new PairLedger({
+      maxActiveUsdc: cfg.detector.maxActiveUsdc,
+      maxPairsPerWindow: cfg.trader.maxPairsPerWindow,
+      dataDir: cfg.dataDir,
+    });
+    let venue;
+    if (cfg.mode === 'live') {
+      venue = new LiveVenue(cfg);
+      await venue.init();
+      log(`LIVE venue armed: funder ${venue.address} (signer ${venue.signerAddress})`);
+      log('LIVE MODE — REAL ORDERS WILL BE PLACED. Caps above are the only brake.');
+    } else {
+      venue = new PaperVenue(feed.books);
+      log('DRY mode: paper venue, fills simulated from the live books (optimistic — no race, full displayed depth).');
+    }
+    trader = new Trader({ cfg, ledger, venue, observer, log });
+    observer.feedMode = cfg.restPoll ? 'rest-poll' : 'ws';
+  }
+
   feed.on('ws', (state, detail) => {
     feedState = feed.state();
     if (state === 'open') { wsEverConnected = true; log('market ws connected'); }
@@ -49,7 +87,9 @@ async function main() {
   });
   feed.on('update', (assetId) => {
     const series = tokenToSeries.get(assetId);
-    if (series) observer.onBookUpdate(series, feed.books);
+    if (!series) return;
+    observer.onBookUpdate(series, feed.books);
+    if (trader) trader.onBookUpdate(series, feed.books);
   });
 
   // ---- discovery loop: keep each series pointed at its current window ----
@@ -131,6 +171,7 @@ async function main() {
         } catch {}
       }
       observer.onBookUpdate(series, feed.books, Date.now());
+      if (trader) trader.onBookUpdate(series, feed.books, Date.now());
     }
     feedState = { connected: false, assets: feed.books.size, restPoll: true };
   }
@@ -143,13 +184,31 @@ async function main() {
 
   await refreshDiscovery();
 
+  const traderExtra = () => (trader ? {
+    mode: cfg.mode,
+    trading: {
+      venue: cfg.mode,
+      halted: trader.halted,
+      attempts: trader.attempts,
+      inFlight: [...trader.inFlight],
+      latency: trader.latencyStats(),
+      ledger: ledger.stats(),
+    },
+  } : { mode: cfg.mode });
+
   const timers = [
     setInterval(refreshDiscovery, 5_000),
     setInterval(drainOutcomes, 10_000),
     setInterval(() => observer.sampleAll(feed.books), cfg.observer.sampleIntervalMs),
-    setInterval(() => { feedState = cfg.restPoll ? feedState : feed.state(); observer.writeStatus(feed.books, feedState); }, 3_000),
+    setInterval(() => { feedState = cfg.restPoll ? feedState : feed.state(); observer.writeStatus(feed.books, feedState, Date.now(), traderExtra()); }, 3_000),
   ];
   if (cfg.restPoll) timers.push(setInterval(restPollOnce, 1_000));
+  if (trader) {
+    timers.push(setInterval(
+      () => trader.drainResolutions((series, startSec) => gamma.fetchWindowOutcome(cfg.gammaBase, series, startSec))
+        .catch((err) => log(`resolution drain error: ${err.message}`)),
+      15_000));
+  }
 
   // Loud hint if the ws never comes up (the Mac situation).
   setTimeout(() => {
@@ -163,7 +222,7 @@ async function main() {
     log('shutting down');
     for (const t of timers) clearInterval(t);
     for (const [series] of observer.markets) observer.closeSeriesEvents(series);
-    observer.writeStatus(feed.books, feedState);
+    observer.writeStatus(feed.books, feedState, Date.now(), traderExtra());
     feed.close();
     setTimeout(() => process.exit(0), 300);
   };

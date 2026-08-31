@@ -1,10 +1,26 @@
-# arb-bot — bi-directional pair arb, Phase 0 build
+# arb-bot — bi-directional pair arb, Phases 0–1
 
-Implementation of [bidirectional-arb-plan.md](bidirectional-arb-plan.md), work
-items **1, 2 and 2b** (plan §8b). Per the plan's most important line, nothing
-past the observer exists yet: *"nothing gets built past the observer until the
-observer proves the opportunities exist net of fees."* `ARB_MODE=live` refuses
-to start.
+Implementation of [bidirectional-arb-plan.md](bidirectional-arb-plan.md): the
+Phase 0 observer (work items 1, 2, 2b) **plus the Phase 1 take-take buy-side
+executor** (work items 4, 4a) with a paper venue for dry runs and a real-order
+venue on the Polymarket CLOB. The plan's gate still applies operationally:
+run the observer 2–3 days first, and go live only after a clean dry week.
+
+## Modes
+
+```
+npm run arb -- --observe    # Phase 0 recorder only (no keys needed)
+npm run arb -- --dry        # Phase 1 executor, PAPER fills from live books
+npm run arb -- --live       # REAL ORDERS — needs POLY_PRIVATE_KEY + ARB_LIVE_CONFIRM=yes
+node reconcile.js           # journal vs live positions — run after EVERY live session
+```
+
+Live safety rails: refuses without `ARB_LIVE_CONFIRM=yes` and a key; caps
+enforced through the pair ledger (`ARB_MAX_ACTIVE_USDC`, pairs-per-window,
+one in-flight per series, re-arm cooldown); the executor only fires when every
+detector gate is green (fee-adjusted trigger, depth, freshness, τ, clip).
+Dry-run fills are **optimistic** (full displayed depth, no race) — treat dry
+P&L as an upper bound, not a forecast.
 
 ## What's here
 
@@ -18,7 +34,11 @@ to start.
 | `lib/books.js` | §4 feeds | L2 book maintenance over the market ws; 5s PING keepalive; connection swap on window rollover. |
 | `lib/observer.js` | §5 Phase 0 | Push-driven edge-event detection (not sampled — the gate needs ≥300ms event durations), 1 Hz sampler, plus the three free archetype recorders (cross-timeframe, near-resolution, skew). |
 | `lib/config.js` | §7 | Env config + the runtime `UPDOWN_SLUG_PREFIX` collision assert (refuses to start on overlap). |
-| `dashboard-server.js` | §8 | `GET /api/arb` + the Arb tab (observer view) on :3210. |
+| `dashboard-server.js` | §8 | `GET /api/arb` + the Arb tab on :3210 — observer view, P&L strip, pair rows, latency. |
+| `lib/venue.js` | §5 Phase 1 | Order venues: `PaperVenue` (simulated FAK fills) and `LiveVenue` (real FAK orders via `@polymarket/clob-client`, EIP-712 signed, proxy-wallet signature type 1). |
+| `lib/ledger.js` | §4 ledger | Pair-level ledger + `data/arb-journal.json` (append-only ndjson, one snapshot per state change). Books only exchange-confirmed `makingAmount`/`takingAmount`. |
+| `lib/trader.js` | §5 Phase 1 | Take-take executor: two concurrent FAK buys on trigger; immediate sell-back of any excess at the bid (no leash in take mode); stranded (< min size) rides to resolution; hold-to-resolution v1; detect→ack latency (work item 4a). |
+| `reconcile.js` | §8b item 4 | Journal vs live positions via the data API. Non-zero drift = do not raise caps. |
 
 ## Run (Windows trading box — CLOB websockets are blocked on the Mac)
 
@@ -65,8 +85,29 @@ gate; the dashboard shows a warning pill when it's active.
   tie exposure on these series).
 - Book REST/ws shapes, slug determinism, endDate = windowStart + tf.
 
+## Going live (plan §5 Phase 1 / §8b item 5)
+
+1. Observer 2–3 days on Windows → gate decision from the dashboard.
+2. `--dry` for a week; watch the P&L strip decomposition and the detect→ack
+   p95 (that number prices the C++ engine, work item 4a).
+3. Fill in `POLY_PRIVATE_KEY` / `POLY_FUNDER_ADDRESS` in `.env` **on the
+   trading box only** (never commit), set `ARB_LIVE_CONFIRM=yes`, start at
+   the $10 cap.
+4. After the first session: `node reconcile.js`, and **verify one real fill's
+   charged fee** against the journal's expected fee before trusting the
+   detector's arithmetic (plan §2 — formula base is still secondhand).
+5. Gate to keep running: after 100 live pairs, P&L/pair > 0 and unwind rate < 25%.
+
+Known Phase 1 v1 limitations (by design, per the plan):
+- **Hold-to-resolution**: no CTF merge yet (work item 4b), so matched pairs
+  tie up capital until the window resolves and winners sit unredeemed until
+  the redeem module exists — `reconcile.js` lists them.
+- Sell side (rich pairs, splits) is Phase 3; passive quoting is Phase 2.
+- Live FAK acks include `createOrder`'s local signing only; order posting is
+  one HTTPS round-trip per leg on a shared keep-alive agent.
+
 ## What is deliberately NOT built yet (plan gates)
 
-Phase 1 executor, pair ledger, CTF split/merge, C++ engine — all blocked
-behind the Phase 0 numbers. The golden-vector file and the `ARB_ENGINE`
-config knob exist so the later phases slot in without rework.
+CTF split/merge/redeem (4b), Phase 2 completion engine, Phase 3 sell side,
+C++ engine (4c). The golden-vector file and the `ARB_ENGINE` config knob
+exist so those slot in without rework.

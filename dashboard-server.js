@@ -17,11 +17,32 @@ const { parseConfig } = require('./lib/config');
 const cfg = parseConfig({ argv: [] });
 const statusPath = path.join(cfg.dataDir, 'arb-status.json');
 const eventsPath = path.join(cfg.dataDir, 'arb-events.jsonl');
+const journalPath = path.join(cfg.dataDir, 'arb-journal.json');
 
 const TAIL_BYTES = 4 * 1024 * 1024; // read at most the last 4MB of events
 
 function readJsonSafe(p) {
   try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return null; }
+}
+
+/** Last journal snapshot per pair id (append-only ndjson, snapshots win). */
+function readPairs() {
+  try {
+    const pairs = new Map();
+    for (const line of fs.readFileSync(journalPath, 'utf8').split('\n')) {
+      if (!line.trim()) continue;
+      try {
+        const row = JSON.parse(line);
+        // Highest seq wins — appendFile writes can land out of order.
+        if (row.type === 'pair' && (!pairs.has(row.id) || (row.seq || 0) >= (pairs.get(row.id).seq || 0))) {
+          pairs.set(row.id, row);
+        }
+      } catch {}
+    }
+    return [...pairs.values()].sort((a, b) => b.detect.tDetect - a.detect.tDetect);
+  } catch {
+    return [];
+  }
 }
 
 function readEventsTail() {
@@ -97,7 +118,7 @@ const server = http.createServer((req, res) => {
     const status = readJsonSafe(statusPath);
     const rows = readEventsTail();
     res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' });
-    res.end(JSON.stringify({ status, summary: summarize(rows) }));
+    res.end(JSON.stringify({ status, summary: summarize(rows), pairs: readPairs().slice(0, 60) }));
     return;
   }
   if (req.url === '/' || req.url.startsWith('/index')) {
@@ -141,7 +162,8 @@ const PAGE = `<!doctype html>
 <div class="grid">
   <div class="card"><h2>Gate — buy side (cheap pairs)</h2><div id="gateBuy"></div></div>
   <div class="card"><h2>Gate — sell side (rich pairs)</h2><div id="gateSell"></div></div>
-  <div class="card full"><h2>P&amp;L strip</h2><div class="sub">Phase 1 not live — no trades, no P&amp;L. This strip activates with the executor.</div></div>
+  <div class="card full"><h2>P&amp;L strip</h2><div id="pnl"><div class="sub">observe mode — no trades.</div></div></div>
+  <div class="card full"><h2>Pair rows</h2><div id="pairs"><div class="sub">no pair attempts yet</div></div></div>
   <div class="card"><h2>Events per series</h2><div id="series"></div></div>
   <div class="card"><h2>Books / windows</h2><div id="books"></div></div>
   <div class="card"><h2>Duration histograms (ms)</h2><div id="hist"></div></div>
@@ -181,7 +203,9 @@ async function tick() {
     const s = d.status, sum = d.summary;
     const pills = [];
     if (s) {
-      pills.push('<span class="pill">mode: ' + s.mode + '</span>');
+      const modeCls = s.mode === 'live' ? 'bad' : s.mode === 'dry' ? 'warn' : '';
+      pills.push('<span class="pill ' + modeCls + '">mode: ' + s.mode + (s.mode === 'live' ? ' — REAL ORDERS' : '') + '</span>');
+      if (s.trading && s.trading.halted) pills.push('<span class="pill bad">TRADER HALTED</span>');
       pills.push('<span class="pill">engine: ' + s.engine + '</span>');
       pills.push('<span class="pill ' + (s.alerts.wsDown ? 'bad' : 'ok') + '">market ws ' + (s.alerts.wsDown ? 'DOWN' : 'up') + '</span>');
       if (s.alerts.restPollMode) pills.push('<span class="pill warn">REST-POLL DEBUG — NOT GATE-VALID</span>');
@@ -195,6 +219,35 @@ async function tick() {
 
     document.getElementById('gateBuy').innerHTML = gateBlock('buy', s && s.gate, sum.sides.buy);
     document.getElementById('gateSell').innerHTML = gateBlock('sell', s && s.gate, sum.sides.sell);
+
+    // P&L strip (plan §8 block 1): realized total + decomposition.
+    if (s && s.trading) {
+      const L = s.trading.ledger, D = L.decomposition, lat = s.trading.latency;
+      const cls = L.realizedPnl > 0 ? 'pass' : L.realizedPnl < 0 ? 'fail' : '';
+      document.getElementById('pnl').innerHTML =
+        '<div class="big ' + cls + '">$' + fmt(L.realizedPnl, 4) + ' realized' +
+        (L.perPair != null ? ' <span class="sub">($' + fmt(L.perPair, 4) + '/pair)</span>' : '') + '</div>' +
+        '<div class="sub">redeems $' + fmt(D.redeems, 2) + ' + unwind proceeds $' + fmt(D.unwindProceeds, 2) +
+        ' − buys $' + fmt(D.buys, 2) + ' · unwind losses $' + fmt(D.unwindLosses, 4) +
+        ' · expected fees $' + fmt(D.expectedFees, 4) + '</div>' +
+        '<div class="sub">pairs: ' + Object.entries(L.counts).filter(([,v]) => v).map(([k,v]) => k + ' ' + v).join(' · ') +
+        ' · committed $' + fmt(L.committedUsdc, 2) + ' / cap' +
+        (lat ? ' · detect→ack p50 ' + lat.p50 + 'ms p95 ' + lat.p95 + 'ms (n=' + lat.n + ')' : '') + '</div>';
+    }
+
+    // Pair rows (plan §8 block 2).
+    if (d.pairs && d.pairs.length) {
+      let p = '<table><tr><th>t</th><th>id</th><th>series</th><th>askUp</th><th>askDown</th><th>clip</th><th>state</th><th>matched</th><th>realized $</th><th>ack ms</th></tr>';
+      for (const q of d.pairs) {
+        const badge = { MATCHED:'pass', RESOLVED:'pass', SCRATCH:'', IN_FLIGHT:'buy', PARTIAL:'fail', UNWOUND:'fail', STRANDED:'fail' }[q.state] || '';
+        p += '<tr><td>' + new Date(q.detect.tDetect).toISOString().slice(11,19) + '</td><td>' + q.id +
+             '</td><td>' + q.series + '</td><td>' + fmt(q.detect.askUp,2) + '</td><td>' + fmt(q.detect.askDown,2) +
+             '</td><td>' + q.detect.clip + '</td><td class="' + badge + '">' + q.state +
+             '</td><td>' + q.matchedShares + '</td><td>' + (q.realizedPnl == null ? '—' : fmt(q.realizedPnl,4)) +
+             '</td><td>' + (q.latencyMs ? q.latencyMs.detectToLastAck : '—') + '</td></tr>';
+      }
+      document.getElementById('pairs').innerHTML = p + '</table>';
+    }
 
     let t = '<table><tr><th>series</th><th class="buy">buy</th><th class="buy">gate</th><th class="sell">sell</th><th class="sell">gate</th></tr>';
     for (const [k,v] of Object.entries(sum.perSeries)) {
