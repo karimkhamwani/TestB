@@ -12,7 +12,7 @@ npm install
 npm test                    # 69 tests
 npm run arb -- --observe    # recorder only (no keys)
 npm run arb -- --dry        # FULL strategy, paper venue + paper CTF
-npm run arb -- --live       # REAL ORDERS — POLY_PRIVATE_KEY + ARB_LIVE_CONFIRM=yes
+npm run arb -- --live       # REAL ORDERS — requires POLY_PRIVATE_KEY in .env
 npm run dashboard           # http://localhost:3210
 node report.js              # paste-able gate/P&L report from the data files
 node reconcile.js           # journal vs live positions — after EVERY live session
@@ -42,7 +42,7 @@ behind one interface), [lib/strategy.js](lib/strategy.js) (the orchestrator).
 
 ## Safety rails
 
-- `--live` refuses without `ARB_LIVE_CONFIRM=yes` **and** a key in `.env` (never commit it; `.gitignore` covers it).
+- `--live` refuses without `POLY_PRIVATE_KEY` in `.env` (never commit it; `.gitignore` covers it). `ARB_MODE=live` alone arms real orders — keep that line out of `.env` until you mean it.
 - Caps enforced in one place (the ledger): active-USDC, pairs-per-window, per-series allocation, one in-flight per series, re-arm cooldowns.
 - Every fill books only exchange-confirmed `makingAmount`/`takingAmount`.
 - Dry-run fills are **optimistic** (no race, full displayed depth) — dry P&L is an upper bound.

@@ -7,9 +7,9 @@
 //   --observe  recorder only (no orders, no keys needed)
 //   --dry      the FULL strategy against a PAPER venue + paper CTF (simulated
 //              fills from the live books; optimistic — see lib/venue.js)
-//   --live     REAL ORDERS. Requires POLY_PRIVATE_KEY (+ proxy funder) in .env
-//              AND ARB_LIVE_CONFIRM=yes. Start at the $10 cap only after a
-//              clean dry week.
+//   --live     REAL ORDERS. Requires POLY_PRIVATE_KEY (+ proxy funder) in .env.
+//              ARB_MODE=live alone arms real orders — treat that line with
+//              care. Start at the $10 cap only after a clean dry week.
 //
 // One strategy, all modules (lib/strategy.js): taker, maker, sellside,
 // allocator, skew — sharing one ledger, one venue, one CTF.
@@ -33,18 +33,9 @@ function log(...args) {
 async function main() {
   const cfg = parseConfig({});
 
-  if (cfg.mode === 'live') {
-    if (!cfg.trader.liveConfirm) {
-      console.error(
-        'ARB_MODE=live refused: set ARB_LIVE_CONFIRM=yes to arm real orders.\n' +
-        'Live is meant to follow a clean DRY week at the $' + cfg.detector.maxActiveUsdc +
-        ' cap; run --dry first and reconcile (node reconcile.js) before arming.');
-      process.exit(1);
-    }
-    if (!process.env.POLY_PRIVATE_KEY) {
-      console.error('ARB_MODE=live refused: POLY_PRIVATE_KEY is not set (put it in .env on the trading box).');
-      process.exit(1);
-    }
+  if (cfg.mode === 'live' && !process.env.POLY_PRIVATE_KEY) {
+    console.error('ARB_MODE=live refused: POLY_PRIVATE_KEY is not set (put it in .env on the trading box).');
+    process.exit(1);
   }
 
   log(`starting mode=${cfg.mode}: ${cfg.series.length} series, data -> ${cfg.dataDir}`);
