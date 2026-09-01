@@ -55,7 +55,7 @@ async function main() {
   log(`gate: >= ${cfg.observer.gateEventsPerDay} events/day of >= ${cfg.observer.minEventMs}ms with ` +
       `${cfg.detector.minDepth}x${cfg.detector.minDepth} depth, buySum<=${cfg.detector.buySum}, sellSum>=${cfg.detector.sellSum}`);
 
-  const observer = new Observer(cfg);
+  const observer = new Observer(cfg, log);
   const feed = new BookFeed(cfg.clobWs);
   let userFeed = null;
   const tokenToSeries = new Map();
@@ -253,6 +253,24 @@ async function main() {
     setInterval(() => { feedState = cfg.restPoll ? feedState : feed.state(); observer.writeStatus(feed.books, feedState, Date.now(), traderExtra()); }, 3_000),
   ];
   if (cfg.restPoll) timers.push(setInterval(restPollOnce, 1_000));
+
+  // Once-a-minute heartbeat so the console shows life without the dashboard.
+  timers.push(setInterval(() => {
+    const c = observer.counters;
+    const g = observer.gateStatus();
+    let line = `hb: samples=${c.samples} edges buy=${c.buyEvents}/${c.buyGateEvents}gate sell=${c.sellEvents}/${c.sellGateEvents}gate ` +
+      `proj/day buy=${g.projectedPerDay.buy} sell=${g.projectedPerDay.sell} ws=${(cfg.restPoll ? 'rest-poll' : (feed.state().connected ? 'up' : 'DOWN'))}`;
+    if (strategy) {
+      const L = ledger.stats();
+      line += ` | pairs=${L.pairs} realized=$${L.realizedPnl} committed=$${L.committedUsdc}` +
+        (strategy.maker ? ` quotes=${strategy.maker.quoteCount()}` : '') +
+        (strategy.batcher.pending ? ` mergesPending=${strategy.batcher.pending}` : '');
+    }
+    const rejects = Object.entries(c.rejects).sort((a, b) => b[1] - a[1]).slice(0, 3)
+      .map(([k, v]) => `${k}:${v}`).join(' ');
+    if (rejects) line += ` | top rejects: ${rejects}`;
+    log(line);
+  }, 60_000));
   if (strategy) {
     timers.push(setInterval(guarded(() => strategy.tick(feed.books)), 1_000));
     timers.push(setInterval(
