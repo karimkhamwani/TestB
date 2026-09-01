@@ -18,7 +18,7 @@
 // the V2 write-up's formula with the live feeSchedule parameters observed on
 // real updown markets (rate 0.07, exponent 1 => 1.75c/share at p=0.50, ~0 at
 // the extremes). The base (shares vs notional) is secondhand until verified
-// against one real charged fill — work item in Phase 1, before any live gate.
+// against one real charged fill before any live gate is trusted.
 
 const ROUND_DP = 6;
 

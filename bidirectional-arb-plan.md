@@ -62,7 +62,7 @@ Each direction has a passive and an aggressive variant:
     rate. Rates stay queryable per token (`client.feeRates` / `FeeInfos`);
   - the formula's base (shares vs notional) and the exact `C` are secondhand —
     **verify against one real fill's charged fee before the detector's
-    arithmetic is trusted** (work item in Phase 1, before the live gate).
+    arithmetic is trusted** (work item before the live gate).
 
 ## 3. Economics envelope (honest version)
 
@@ -79,7 +79,7 @@ Per completed pair, per share: `edge − fees`. With 5-share clips:
   window's completed pairs and merge once — and measure the real per-merge
   cost before assuming the instant-recycle math
 
-We do not know opportunity frequency. That is why Phase 0 exists. If
+We do not know opportunity frequency. That is why the observer runs first. If
 measurement shows (say) sum < 0.985 with 5×5 depth occurs 40×/day across 10
 series and persists ≥ 500ms, the take-take bot alone clears a few dollars a
 day at 5-share clips and scales linearly with clip size until depth runs out.
@@ -99,7 +99,7 @@ NODE SUPERVISOR (arb-bot.js)                 C++ ENGINE (arb-engine)
   pair LEDGER (arb-core.js, 37 tests)   <---  fill/ack events (ndjson over pipe)
   journal + reconciliation              --->  window config: tokens, thresholds,
   CTF split/merge/redeem, settlement          clip sizes, caps (ndjson over pipe)
-  observer mode (Phase 0)                     EIP-712 sign (libsecp256k1) + POST
+  observer mode                     EIP-712 sign (libsecp256k1) + POST
   watchdog: restarts/halts the engine         over a kept-alive TLS session
 ```
 
@@ -128,7 +128,7 @@ detector (pure functions, unit-testable):
          DYNAMIC: shares = max(ARB_SHARES, ceil(1 / cheapLegPrice)), capped by
          depth and the active-USDC cap. A fixed 5-share clip silently locks
          the bot out of exactly the pairs the fee model favors
-executor: per phase (below)
+executor: per module (below)
 ledger:   pair-level accounting — every pair is CREATED as a unit and every
           leg's fill/cut/settle is booked against it (all four mm-bot
           accounting bugs were leg-level bookkeeping errors; pair-level state
@@ -180,7 +180,7 @@ makes us fast enough to catch leftovers competitively, not to win front-runs.
    (an exchange-confirmed fill the ledger refuses to book = state divergence
    = stop trading, loudly).
 
-**Sequencing (does not block anything).** Phase 1 ships on the Node executor
+**Sequencing (does not block anything).** The taker module ships on the Node executor
 first — same detector, same ledger, just slower. The engine is built in
 parallel and swapped in behind the same IPC interface once it (a) passes the
 golden vectors, (b) beats the Node executor's measured detect→ack latency in
@@ -193,11 +193,11 @@ slower rather than stopping.
 detect→ack histogram. If p95 is already dominated by network RTT (likely
 30–80ms), the C++ engine's priority drops accordingly — it is an
 optimization, not a prerequisite, and the observer's opportunity-duration
-data (Phase 0) decides how much tail latency actually costs us.
+data decides how much tail latency actually costs us.
 
-## 5. Phases with go/no-go gates
+## 5. Strategy modules with go/no-go gates
 
-### Phase 0 — Measure (build first, ~a day; runs unattended)
+### Observer — Measure (build first, ~a day; runs unattended)
 `arb-bot.js --observe`: subscribe books for all 10 series. **Edge-event
 detection runs on every websocket book update (push), not on a clock** — the
 gate cares about events lasting ≥ 300ms, and 1 Hz sampling would alias or
@@ -206,7 +206,7 @@ miss them entirely. A once-per-second sampler additionally records `askSum`,
 Windows for 2–3 days.
 
 The same feeds carry the data for THREE more archetypes at zero extra cost,
-so the observer records them too and Phase 0 doubles as strategy selection:
+so the observer records them too and the measurement doubles as strategy selection:
 
 - **cross-timeframe divergence** (taxonomy type 4): implied probability of the
   15m contract vs the live 5m contracts inside it — log divergence events;
@@ -214,16 +214,16 @@ so the observer records them too and Phase 0 doubles as strategy selection:
   final 30s vs eventual outcome — measures the real reversal rate behind the
   "buy at 0.99" style (high win rate, tail risk — this is the data that
   answers the earlier 0.95-limit-order idea with numbers instead of theory);
-- **skew opportunities** (type 2, see Phase 5): moments where one leg is
+- **skew opportunities** (type 2, see the skew module): moments where one leg is
   buyable below the model fair while the pair still sums < 1.00.
 
-**Gate to Phase 1:** fee-adjusted buy-side events with ≥ 5×5 depth and
+**Gate to trading:** fee-adjusted buy-side events with ≥ 5×5 depth and
 ≥ 300ms duration occur often enough to matter (target: ≥ 20/day across all
 series). Same test separately for sell-side. Whichever side clears its gate
 gets built first; if neither clears, stop — the strategy is dead at our
 latency and the effort moves elsewhere.
 
-### Phase 1 — Take-take buy side (the safe core)
+### Taker module — Take-take buy side (the safe core)
 Both asks visible, fee-adjusted sum ≤ threshold (start 0.985), both FAKs fired
 concurrently. Note the fee curve: both legs are taker fills, and near
 0.50/0.50 that is the most expensive fee zone on the platform — the
@@ -234,13 +234,13 @@ where taker fees collapse toward zero. Handle the three outcomes:
   fee, no order book). No resolution wait, no tie/void exposure, capital free
   for the next opportunity within seconds.
   **Dependency fix:** merging is CTF contract machinery, which the original
-  draft scheduled in Phase 3 — Phase 1 must not silently depend on Phase 3
-  work. So: Phase 1 v1 ships with hold-to-resolution (capital recycles per
+  draft scheduled with the sell side — the taker must not silently depend on
+  sell-side work. So: taker v1 ships with hold-to-resolution (capital recycles per
   window, tie risk stays in the register), and the CTF split/merge/redeem
   module is built as **work item 4b**, immediately after the v1 executor.
   Merge-on-fill turns on the moment it exists. Also verify early whether the
   proxy wallet (SIGNATURE_TYPE=1) needs Polymarket's relayer for CTF calls —
-  that is an unknown that could delay 4b, not a reason to delay Phase 1
+  that is an unknown that could delay 4b, not a reason to delay the taker
 - one fills / partial imbalance → **immediate** sell-back at the bid (reuse
   the watchdog's unwind, but fired instantly — no 50s wait; we were never
   entitled to rest)
@@ -257,7 +257,7 @@ thresholds and books do not change — only the reaction time.
 unwind rate < 25%. Reconcile journal vs actual Polymarket positions after the
 first live session before raising any cap.
 
-### Phase 2 — Passive buy side with a completion engine
+### Maker module — Passive buy side with a completion engine
 This is the current updown bot's strategy with its one-legged problem attacked
 directly instead of merely time-boxed:
 
@@ -266,10 +266,10 @@ directly instead of merely time-boxed:
   the other side's ask still completes the pair under $0.99. If yes, FAK it —
   a completed arb beats waiting. If no, start a short leash (15–20s), then
   sell back.**
-- matched pairs are merged back to cash immediately (same as Phase 1); the
+- matched pairs are merged back to cash immediately (same as the taker); the
   ledger tracks pairs, not legs
 
-**Lean-aware legging control (refinement, same phase).** Sizing is never
+**Lean-aware legging control (refinement, same module).** Sizing is never
 skewed by side — a deliberate one-sided buy is a directional bet, not arb.
 But *stranding* risk is skewed on purpose: live data shows the leg that fills
 alone is usually the LOSING side (holders dump the dying token into resting
@@ -279,15 +279,15 @@ it should strand us on the probable winner, which the completion engine can
 usually still finish into a full pair. Every completed position remains a
 true both-sides arb; the asymmetry only chooses which accidents we accept.
 
-This phase can either live in `arb-bot.js` or be back-ported to
-`updown-5m.js`/copier later — decide when we see Phase 1 results. Do not run
-Phase 2 and the updown bot on the same series at the same time (they would
+This module can either live in `arb-bot.js` or be back-ported to
+`updown-5m.js`/copier later — decide when we see taker results. Do not run
+the maker and the updown bot on the same series at the same time (they would
 compete with and unwind into each other).
 
 **Gate:** completion rate (both legs matched, by post or by completion-take)
-> 60% of pairs that get any fill, and per-pair P&L beats Phase 1's.
+> 60% of pairs that get any fill, and per-pair P&L beats the taker's.
 
-### Phase 3 — Sell side (rich pairs)
+### Sell-side module — Rich pairs
 New machinery: on-chain `splitPosition` (USDC → Up+Down via the CTF contract,
 Polygon gas ≈ negligible) to obtain inventory, then post/take asks on both
 legs when `bidSum` clears `1.00 + fees + margin`. The V2 article confirms this
@@ -309,16 +309,16 @@ not anomalies:
 - needs: CTF contract wiring (ethers is already a dependency), allowance
   setup, split/merge latency measured before trusting the take path
 
-**Gate:** Phase 0 showed rich-pair events ≥ as frequent as cheap-pair ones
+**Gate:** the observer showed rich-pair events ≥ as frequent as cheap-pair ones
 (the wallet's median 1.018 sum suggests they are), and split→sell round-trip
 < 2s measured on Windows.
 
-### Phase 4 — Scale
+### Allocator — Scale
 All 10 series, clip size ladder (5 → 10 → 20 shares) driven by measured depth,
 capital manager that allocates the active-USDC cap across series by realized
-edge. Only after Phases 1–3 each have ≥ a week of clean reconciled books.
+edge. Only after taker, maker and sell-side each have ≥ a week of clean reconciled books.
 
-### Phase 5 — Directional-hedge mode (skewed pairs) — optional, gated hardest
+### Skew module — Directional-hedge mode (skewed pairs) — optional, gated hardest
 The archetype the taxonomy calls a "directional arbitrage bot" (example:
 `ohanism`; the sports version, `tradecraft`, turned $17,403 of deposits into
 +$213,295 on tennis with a **median 82.8% of volume on the dominant side**).
@@ -342,7 +342,7 @@ Implementation is one dial on the existing machinery:
 
 - `ARB_SKEW` κ ∈ [0.50 … 0.85]: target dominant share of volume. κ = 0.50 is
   today's pure arb (equal legs). κ only rises above 0.50 when a **calibrated**
-  fair-value signal says one side is underpriced — this phase is hard-gated on
+  fair-value signal says one side is underpriced — this module is hard-gated on
   the model-calibration exercise (the delta bot's dry-run scoring); an
   uncalibrated model with κ > 0.5 is just the losing-side-buying bias with
   extra steps.
@@ -355,7 +355,7 @@ Implementation is one dial on the existing machinery:
   book, no market impact) — the hedge doubles as an exit route through thin
   books, which is exactly why the tennis bot can carry size the book couldn't
   absorb as a sell.
-- **merge policy differs from Phases 1–2 on purpose.** Auto-merge is the
+- **merge policy differs from the taker/maker modules on purpose.** Auto-merge is the
   PURE-ARB rule: there, pairs are the product and cashing them is the point.
   In skew mode, matched pairs are the hedge's working inventory and are NOT
   auto-merged. Payoff at resolution is identical either way (a matched pair is
@@ -368,9 +368,9 @@ Implementation is one dial on the existing machinery:
   resolution or is cut on a fair-value stop, as before.
 
 **Gate:** delta-model calibration verified on ≥ 1 week of dry-run data
-(predicted probabilities within ~5pts of realized frequencies), AND Phases 1–2
-running clean. Until both hold, κ stays pinned at 0.50 and this phase does not
-exist.
+(predicted probabilities within ~5pts of realized frequencies), AND the
+taker/maker modules running clean. Until both hold, κ stays pinned at 0.50 and
+this module stays inert.
 
 ## 6. Risk register
 
@@ -378,7 +378,7 @@ exist.
 |---|---|
 | Legging (one side fills) | instant completion-or-unwind on fill push; never wait a fixed timer in take mode |
 | Stale-book bait (sum < 1 because one book lags a move) | book freshness gate (< 1s), require depth on both legs, threshold margin below 1.00 |
-| Fees eat the edge | per-token fee query each window; edges computed net of fees; Phase 0 gate is fee-adjusted |
+| Fees eat the edge | per-token fee query each window; edges computed net of fees; the observer gate is fee-adjusted |
 | Partial FAK fills | book only `makingAmount/takingAmount` actually returned (mm-bot fix #3); imbalance sold immediately |
 | Failed cancels | orphan tracker with retry + loud give-up (mm-bot fix #6) |
 | Accounting drift | pair-level ledger; mandatory journal-vs-positions reconciliation after every live session |
@@ -389,27 +389,27 @@ exist.
 | Heartbeat timeout (10s silence -> disconnect + order clear) | keep-alive on every ws; treat the auto-clear as a safety net, not an error |
 | Taker latency (~250-300ms on-chain settle vs ~25ms maker acks) | take-take must assume a ~300ms race window; prefer maker routes when the edge allows |
 | Both bots colliding | **runtime assert, not a comment**: arb-bot reads `UPDOWN_SLUG_PREFIX` from the same `.env` at startup and refuses to start if `ARB_SERIES` overlaps it |
-| Us being the slow ones | accept it: thresholds wide enough that we don't need to win races, only to catch leftovers; Phase 0 tells us if leftovers exist |
-| Skew mode with a wrong model (Phase 5) | κ hard-pinned to 0.50 until calibration is proven; worst-case loss per market computed at entry and capped by `ARB_MAX_LOSS_USDC` |
+| Us being the slow ones | accept it: thresholds wide enough that we don't need to win races, only to catch leftovers; the observer tells us if leftovers exist |
+| Skew mode with a wrong model | κ hard-pinned to 0.50 until calibration is proven; worst-case loss per market computed at entry and capped by `ARB_MAX_LOSS_USDC` |
 | C++/Node math divergence | shared golden test vectors (`arb-core.vectors.json`) gate the C++ build; any supervisor ledger-reject halts the engine |
 | C++ engine crash / bad deploy | supervisor owns all state; auto-fallback to the Node executor, trading degrades to slower instead of stopping |
-| Windows C++ toolchain overhead | CMake+vcpkg pinned deps; engine is optional at every stage — no phase blocks on it |
+| Windows C++ toolchain overhead | CMake+vcpkg pinned deps; engine is optional at every stage — no module blocks on it |
 
 ## 7. Config sketch
 
 ```
-ARB_MODE=observe|live          # Phase 0 vs trading
+ARB_MODE=observe|dry|live      # measure vs paper vs trading
 ARB_SERIES=btc-updown-5m,eth-updown-5m,...   # never overlapping UPDOWN_SLUG_PREFIX
 ARB_BUY_SUM=0.985              # fee-adjusted trigger, buy side
-ARB_SELL_SUM=1.015             # fee-adjusted trigger, sell side (Phase 3)
+ARB_SELL_SUM=1.015             # fee-adjusted trigger, sell side
 ARB_SHARES=5
 ARB_MAX_ACTIVE_USDC=10
 ARB_MAX_PAIRS_PER_WINDOW=2
 ARB_MIN_TAU_SEC=20
-ARB_COMPLETE_MAX_SUM=0.99      # Phase 2 completion-take ceiling
-ARB_LEASH_SEC=15               # Phase 2 unwind leash after a lone fill
-ARB_SKEW=0.50                  # Phase 5 dial: 0.50 = pure arb; rises only with a calibrated model
-ARB_MAX_LOSS_USDC=3            # Phase 5 hard cap on per-market worst case (cost - hedge payout)
+ARB_COMPLETE_MAX_SUM=0.99      # maker completion-take ceiling
+ARB_LEASH_SEC=15               # maker unwind leash after a lone fill
+ARB_SKEW=0.50                  # skew dial: 0.50 = pure arb; rises only with a calibrated model
+ARB_MAX_LOSS_USDC=3            # skew: hard cap on per-market worst case (cost - hedge payout)
 ARB_ENGINE=node                # node | cpp — execution hot path (cpp requires passing golden vectors)
 ARB_ENGINE_PIPE=arb-engine     # named-pipe suffix for supervisor <-> engine IPC
 ```
@@ -420,7 +420,7 @@ Reuses the existing dashboard stack (`dashboard-server.js` on :3210 + the
 React panel) — one new data source, one new view, no second web app:
 
 - **`arb-status.json`** (heartbeat, written every few seconds by the
-  supervisor): mode/phase, engine in use (node|cpp) and its health, ws
+  supervisor): mode/modules, engine in use (node|cpp) and its health, ws
   connection states, caps in use (`committed / ARB_MAX_ACTIVE_USDC`), orphan
   count, settling count, and — in observe mode — live opportunity counters.
 - **`arb-journal.json`** (already in the plan): one row per pair attempt.
@@ -437,7 +437,7 @@ React panel) — one new data source, one new view, no second web app:
      size, outcome badge (`MERGED` / `RESOLVED` / `UNWOUND` / `PARTIAL` /
      `IN-FLIGHT`), realized $, and detect→ack latency. The latency column is
      the live version of work item 4a's histogram.
-  3. **Phase 0 observer view** — while observing: opportunity events per
+  3. **Observer view** — while observing: opportunity events per
      series (buy-side and sell-side separately), duration and depth
      histograms, and a running "would the gate pass?" indicator. The
      go/no-go decision gets made by looking at this panel, not by grepping
@@ -448,8 +448,8 @@ React panel) — one new data source, one new view, no second web app:
   halted), orphan orders present, user-ws down (fills degraded to REST
   reconciliation), heartbeat stale, Tuesday-maintenance window active.
 
-Work item: lands with Phase 0 (the observer view IS the gate instrument), and
-the trade views activate with Phase 1. Journals are append-only JSON like the
+Work item: lands with the observer (its view IS the gate instrument), and
+the trade views activate with the taker. Journals are append-only JSON like the
 copier's, so the dashboard needs no new plumbing beyond the endpoint.
 
 ## 8b. Order of work
@@ -457,17 +457,17 @@ copier's, so the dashboard needs no new plumbing beyond the endpoint.
 1. `arb-bot.js` skeleton from mm-bot plumbing + `--observe` recorder — first
 2. Fee reader + fee-adjusted detector with unit tests (pure functions)
 2b. Dashboard: `/api/arb` + Arb tab with the observer view (section 8) — the
-    Phase 0 gate is decided from this panel
+    go/no-go gate is decided from this panel
 3. 2–3 days of Windows observation → **decision meeting with the numbers**
-4. Phase 1 executor in Node (hold-to-resolution v1) + pair ledger + reconciliation script
+4. Taker executor in Node (hold-to-resolution v1) + pair ledger + reconciliation script
 4a. Latency instrumentation: detect→ack histogram for the Node executor — this
     number decides how much the C++ engine is worth
 4b. CTF module: split / merge (batched) / redeem via the proxy wallet — merge-on-fill
-    and Phase 3 both depend on this; verify relayer requirements here
+    and the sell side both depend on this; verify relayer requirements here
 4c. C++ execution engine (section 4b): golden vectors -> A/B benchmark vs Node ->
     dry week -> swap in behind the same IPC interface; Node stays as fallback
 5. Dry week → live at $10 cap → reconcile → verify one real fee charge → raise caps stepwise
-6. Phase 2 completion engine; Phase 3 split/merge wiring; Phase 4 scale
+6. Maker completion engine; sell-side split/merge wiring; allocator scale-out
 
 The single most important line in this plan: **nothing gets built past the
 observer until the observer proves the opportunities exist net of fees.** The

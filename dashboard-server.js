@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-// Minimal dashboard for the arb observer (plan §8). Serves:
-//   GET /api/arb  -> { status, gate, events summary, recent events }
-//   GET /         -> the Arb tab (observer view active; trade views appear in Phase 1)
+// Minimal dashboard for the arb strategy. Serves:
+//   GET /api/arb  -> { status, summary (observer), pairs (strategy) }
+//   GET /         -> the Arb tab: gate blocks, modules, P&L strip, pair rows
 //
 // NOTE for the main repo: this file is standalone here because TestB has no
 // existing dashboard-server.js. When merging into the trading repo, port ONLY
@@ -39,7 +39,7 @@ function readPairs() {
         }
       } catch {}
     }
-    return [...pairs.values()].sort((a, b) => b.detect.tDetect - a.detect.tDetect);
+    return [...pairs.values()].sort((a, b) => (b.detect.tDetect || b.t) - (a.detect.tDetect || a.t));
   } catch {
     return [];
   }
@@ -136,7 +136,7 @@ server.listen(cfg.dashPort, () => {
 
 const PAGE = `<!doctype html>
 <meta charset="utf-8">
-<title>Arb Observer</title>
+<title>Arb Strategy</title>
 <style>
   :root { color-scheme: dark; }
   body { background:#0d1117; color:#c9d1d9; font:13px/1.5 ui-monospace,Menlo,monospace; margin:0; padding:16px 20px; }
@@ -157,11 +157,12 @@ const PAGE = `<!doctype html>
   .full { grid-column: 1 / -1; }
   .bar { display:inline-block; height:9px; background:#58a6ff55; border:1px solid #58a6ff; vertical-align:middle; }
 </style>
-<h1>Arb — Phase 0 observer</h1>
+<h1>Arb — observer + strategy</h1>
 <div class="pills" id="pills"></div>
 <div class="grid">
   <div class="card"><h2>Gate — buy side (cheap pairs)</h2><div id="gateBuy"></div></div>
   <div class="card"><h2>Gate — sell side (rich pairs)</h2><div id="gateSell"></div></div>
+  <div class="card full"><h2>Modules</h2><div id="modules"><div class="sub">observe mode — strategy not running</div></div></div>
   <div class="card full"><h2>P&amp;L strip</h2><div id="pnl"><div class="sub">observe mode — no trades.</div></div></div>
   <div class="card full"><h2>Pair rows</h2><div id="pairs"><div class="sub">no pair attempts yet</div></div></div>
   <div class="card"><h2>Events per series</h2><div id="series"></div></div>
@@ -182,7 +183,7 @@ function gateBlock(side, gate, sum) {
     ' · median duration: ' + (sum && sum.medianDurationMs != null ? sum.medianDurationMs + 'ms' : '—') +
     ' · max edge: ' + (sum ? fmt(sum.maxEdgeSeen) : '—') + '</div>' +
     '<div style="margin-top:6px" class="' + (pass ? 'pass' : 'fail') + '">' +
-    (pass ? 'WOULD PASS' : 'would not pass') + ' the Phase 0 gate</div>';
+    (pass ? 'WOULD PASS' : 'would not pass') + ' the go/no-go gate</div>';
 }
 function histBlock(sides) {
   let h = '';
@@ -220,30 +221,51 @@ async function tick() {
     document.getElementById('gateBuy').innerHTML = gateBlock('buy', s && s.gate, sum.sides.buy);
     document.getElementById('gateSell').innerHTML = gateBlock('sell', s && s.gate, sum.sides.sell);
 
-    // P&L strip (plan §8 block 1): realized total + decomposition.
+    // P&L strip: realized total + the full-flow decomposition.
     if (s && s.trading) {
-      const L = s.trading.ledger, D = L.decomposition, lat = s.trading.latency;
+      const T = s.trading, L = T.ledger, D = L.decomposition;
+      const lat = T.taker && T.taker.latency;
       const cls = L.realizedPnl > 0 ? 'pass' : L.realizedPnl < 0 ? 'fail' : '';
       document.getElementById('pnl').innerHTML =
         '<div class="big ' + cls + '">$' + fmt(L.realizedPnl, 4) + ' realized' +
         (L.perPair != null ? ' <span class="sub">($' + fmt(L.perPair, 4) + '/pair)</span>' : '') + '</div>' +
-        '<div class="sub">redeems $' + fmt(D.redeems, 2) + ' + unwind proceeds $' + fmt(D.unwindProceeds, 2) +
-        ' − buys $' + fmt(D.buys, 2) + ' · unwind losses $' + fmt(D.unwindLosses, 4) +
+        '<div class="sub">sells $' + fmt(D.sells, 2) + ' + merges $' + fmt(D.merges, 2) +
+        ' + redeems $' + fmt(D.redeems, 2) + ' + unwinds $' + fmt(D.unwindProceeds, 2) +
+        ' − buys $' + fmt(D.buys, 2) + ' − splits $' + fmt(D.splits, 2) +
+        ' − ctf $' + fmt(D.ctfCosts, 4) + ' · unwind losses $' + fmt(D.unwindLosses, 4) +
         ' · expected fees $' + fmt(D.expectedFees, 4) + '</div>' +
         '<div class="sub">pairs: ' + Object.entries(L.counts).filter(([,v]) => v).map(([k,v]) => k + ' ' + v).join(' · ') +
+        (L.bySource ? ' · by source: ' + Object.entries(L.bySource).map(([k,v]) => k + ' $' + fmt(v.realized, 2) + ' (' + v.pairs + ')').join(' · ') : '') +
         ' · committed $' + fmt(L.committedUsdc, 2) + ' / cap' +
         (lat ? ' · detect→ack p50 ' + lat.p50 + 'ms p95 ' + lat.p95 + 'ms (n=' + lat.n + ')' : '') + '</div>';
+
+      const mods = [];
+      mods.push('active: ' + (T.modules || []).join(', '));
+      if (T.skew) mods.push('skew κ=' + T.skew.kappa + (T.skew.active ? ' ACTIVE' : ' (pinned — pure arb)') + ', auto-merge ' + (T.skew.autoMerge ? 'on' : 'off'));
+      if (T.ctf) mods.push('ctf: ' + T.ctf.kind + (T.ctf.disabled ? ' DISABLED' : '') + ', pending merges ' + T.ctf.pendingMerges);
+      if (T.maker) mods.push('maker quotes resting: ' + T.maker.quotes);
+      if (T.sellside && T.sellside.splitLatency) mods.push('split latency p50 ' + T.sellside.splitLatency.p50 + 'ms');
+      let mh = '<div class="sub">' + mods.join(' · ') + '</div>';
+      if (T.allocator) {
+        mh += '<table><tr><th>series</th><th>edge</th><th>pairs</th><th>cap $</th></tr>';
+        for (const [k,v] of Object.entries(T.allocator)) {
+          mh += '<tr><td>' + k + '</td><td>' + v.edge + '</td><td>' + v.pairs + '</td><td>' + v.capUsdc + '</td></tr>';
+        }
+        mh += '</table>';
+      }
+      document.getElementById('modules').innerHTML = mh;
     }
 
     // Pair rows (plan §8 block 2).
     if (d.pairs && d.pairs.length) {
-      let p = '<table><tr><th>t</th><th>id</th><th>series</th><th>askUp</th><th>askDown</th><th>clip</th><th>state</th><th>matched</th><th>realized $</th><th>ack ms</th></tr>';
+      let p = '<table><tr><th>t</th><th>id</th><th>source</th><th>series</th><th>state</th><th>qty up/dn</th><th>cost $</th><th>proceeds $</th><th>realized $</th><th>ack ms</th></tr>';
       for (const q of d.pairs) {
-        const badge = { MATCHED:'pass', RESOLVED:'pass', SCRATCH:'', IN_FLIGHT:'buy', PARTIAL:'fail', UNWOUND:'fail', STRANDED:'fail' }[q.state] || '';
-        p += '<tr><td>' + new Date(q.detect.tDetect).toISOString().slice(11,19) + '</td><td>' + q.id +
-             '</td><td>' + q.series + '</td><td>' + fmt(q.detect.askUp,2) + '</td><td>' + fmt(q.detect.askDown,2) +
-             '</td><td>' + q.detect.clip + '</td><td class="' + badge + '">' + q.state +
-             '</td><td>' + q.matchedShares + '</td><td>' + (q.realizedPnl == null ? '—' : fmt(q.realizedPnl,4)) +
+        const badge = { MATCHED:'pass', MERGED:'pass', RESOLVED:'pass', SCRATCH:'', IN_FLIGHT:'buy', PARTIAL:'fail', UNWOUND:'fail', STRANDED:'fail' }[q.state] || '';
+        p += '<tr><td>' + new Date(q.detect.tDetect || q.t).toISOString().slice(11,19) + '</td><td>' + q.id +
+             '</td><td>' + (q.source || '—') + '</td><td>' + q.series + '</td><td class="' + badge + '">' + q.state +
+             '</td><td>' + (q.qty ? q.qty.up + '/' + q.qty.down : '—') +
+             '</td><td>' + fmt(q.cost,2) + '</td><td>' + fmt(q.proceeds,2) +
+             '</td><td>' + (q.realizedPnl == null ? '—' : fmt(q.realizedPnl,4)) +
              '</td><td>' + (q.latencyMs ? q.latencyMs.detectToLastAck : '—') + '</td></tr>';
       }
       document.getElementById('pairs').innerHTML = p + '</table>';

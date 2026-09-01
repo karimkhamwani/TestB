@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-// report.js — Phase 0 gate report from the observer's data files.
+// report.js — go/no-go gate report from the observer's data files.
 // Run on the box that collected the data:  node report.js [dataDir]
 // Prints a compact, paste-able summary: gate verdict per side, durations,
 // per-series breakdown, executability, and the archetype recorders.
@@ -40,7 +40,7 @@ const tMax = Math.max(...rows.map((r) => r.t));
 const spanH = (tMax - tMin) / 3600e3;
 const gateTarget = Number(process.env.ARB_OBS_GATE_PER_DAY || 20);
 
-console.log(`=== Phase 0 gate report ===`);
+console.log(`=== Arb gate report ===`);
 console.log(`data: ${dataDir}`);
 console.log(`span: ${new Date(tMin).toISOString()} -> ${new Date(tMax).toISOString()}  (${spanH.toFixed(1)}h)`);
 if (status) console.log(`observer: mode=${status.mode} feed=${status.feedMode} uptime=${(status.uptimeSec / 3600).toFixed(1)}h${status.feedMode === 'rest-poll' ? '  ** REST-POLL — NOT GATE-VALID **' : ''}`);
@@ -74,10 +74,15 @@ console.log(`skew moments (askSum<1, rate-limited): ${rows.filter((r) => r.type 
 console.log(`cross-timeframe divergences: ${rows.filter((r) => r.type === 'xtf-divergence').length}`);
 
 if (status && status.trading) {
-  const L = status.trading.ledger;
-  const lat = status.trading.latency;
-  console.log(`\n--- trading (${status.trading.venue}) ---`);
+  const T = status.trading;
+  const L = T.ledger;
+  const lat = T.taker && T.taker.latency;
+  console.log(`\n--- trading (${T.venue}) ---`);
+  console.log(`modules: ${(T.modules || []).join(', ')} | skew κ=${T.skew ? T.skew.kappa : '—'}${T.skew && !T.skew.active ? ' (pinned)' : ''} | ctf ${T.ctf ? T.ctf.kind + (T.ctf.disabled ? ' DISABLED' : '') : '—'}`);
   console.log(`pairs: ${JSON.stringify(L.counts)} realized=$${L.realizedPnl} perPair=${L.perPair ?? '—'}`);
-  if (lat) console.log(`detect->ack ms: p50=${lat.p50} p95=${lat.p95} max=${lat.max} (n=${lat.n})   <- work item 4a`);
+  if (L.bySource) console.log(`by source: ${Object.entries(L.bySource).map(([k,v]) => k + ' $' + v.realized + ' (' + v.pairs + ')').join('  ')}`);
+  const D = L.decomposition;
+  if (D) console.log(`decomp: sells $${D.sells} + merges $${D.merges} + redeems $${D.redeems} + unwinds $${D.unwindProceeds} - buys $${D.buys} - splits $${D.splits} - ctf $${D.ctfCosts}`);
+  if (lat) console.log(`detect->ack ms: p50=${lat.p50} p95=${lat.p95} max=${lat.max} (n=${lat.n})   <- prices the C++ engine`);
 }
 console.log('');

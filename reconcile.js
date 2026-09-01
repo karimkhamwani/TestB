@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-// reconcile.js — journal vs actual Polymarket positions (plan §5 Phase 1:
-// "Reconcile journal vs actual Polymarket positions after the first live
-// session before raising any cap"; risk register: mandatory after EVERY live
-// session).
+// reconcile.js — journal vs actual Polymarket positions. Mandatory after
+// EVERY live session, and before raising any cap (risk register: accounting
+// drift).
 //
 // Usage:  node reconcile.js [address]
 // Address defaults to POLY_FUNDER_ADDRESS from .env. Reads data/arb-journal.json
@@ -44,26 +43,31 @@ async function main() {
     } catch {}
   }
 
-  // Expected net shares per token from pairs still holding inventory.
-  // MATCHED/PARTIAL/STRANDED hold matchedShares on both tokens + any excess.
-  // RESOLVED pairs hold redeemable winner shares until CTF redeem exists (4b) —
-  // reported separately, since the data API may or may not show them post-resolution.
+  // Expected net shares per token from non-terminal pairs' live inventory
+  // (pair.qty). RESOLVED pairs may hold winner shares on-chain until the
+  // redeem lands — reported separately.
   const expected = new Map(); // tokenId -> shares
   const redeemable = new Map();
   const add = (m, tok, n) => m.set(tok, (m.get(tok) || 0) + n);
   let paper = 0;
   for (const p of pairs.values()) {
-    if (p.legs && (p.legs.up.paper || p.legs.down.paper)) { paper++; continue; }
-    if (['MATCHED', 'PARTIAL', 'STRANDED'].includes(p.state)) {
-      if (p.matchedShares > 0) { add(expected, p.upToken, p.matchedShares); add(expected, p.downToken, p.matchedShares); }
-      if (p.excess) add(expected, p.excess.tokenId, p.excess.shares);
-    } else if (p.state === 'RESOLVED' && p.redeemUsdc > 0) {
-      const winnerTok = p.resolution && p.resolution.outcome === 'Up' ? p.upToken
-        : p.resolution && p.resolution.outcome === 'Down' ? p.downToken : null;
-      if (winnerTok) add(redeemable, winnerTok, p.redeemUsdc); // $1/share -> shares
+    if (p.mode && p.mode !== 'live') { paper++; continue; }
+    if (['MERGED', 'UNWOUND', 'SCRATCH'].includes(p.state)) continue;
+    if (p.state === 'RESOLVED') {
+      if (p.redeemUsdc > 0) {
+        const winnerTok = p.resolution && p.resolution.outcome === 'Up' ? p.upToken
+          : p.resolution && p.resolution.outcome === 'Down' ? p.downToken : null;
+        if (winnerTok) add(redeemable, winnerTok, p.redeemUsdc); // $1/share -> shares
+        // Outcome unknown to the journal: the cash was booked from balanced
+        // pairs — value is real but the winning token is unidentified. Flag
+        // BOTH tokens so the drift is attributable, not invisible.
+        else { add(redeemable, p.upToken, p.redeemUsdc); add(redeemable, p.downToken, 0); }
+      }
+      continue;
     }
+    if (p.qty) { add(expected, p.upToken, p.qty.up); add(expected, p.downToken, p.qty.down); }
   }
-  if (paper) console.log(`note: skipped ${paper} paper (dry-run) pairs — nothing on-chain to reconcile for those\n`);
+  if (paper) console.log(`note: skipped ${paper} dry-run (paper) pairs — nothing on-chain to reconcile for those\n`);
 
   console.log(`fetching live positions for ${address} ...`);
   const res = await fetch(`https://data-api.polymarket.com/positions?user=${address}&limit=500`);
@@ -83,7 +87,7 @@ async function main() {
     console.log(`...${tok.slice(-8)}   ${e.toFixed(2).padStart(10)} ${a.toFixed(2).padStart(10)} ${d.toFixed(2).padStart(10)}${Math.abs(d) > 1e-6 ? '  <-- DRIFT' : ''}`);
   }
   if (redeemable.size) {
-    console.log('\nresolved-but-unredeemed (CTF redeem is work item 4b):');
+    console.log('\nresolved, possibly not yet redeemed (verify the redeem txs landed):');
     for (const [tok, usdc] of redeemable) console.log(`  ...${tok.slice(-8)}  $${usdc.toFixed(2)} redeemable`);
   }
   console.log(drift === 0
