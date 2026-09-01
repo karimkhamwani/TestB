@@ -8,7 +8,8 @@
     "observe": "node arb-bot.js --observe",
     "dashboard": "node dashboard-server.js",
     "test": "node --test",
-    "vectors": "node test/dump-vectors.js"
+    "vectors": "node test/dump-vectors.js",
+    "snapshot": "node snapshot.js"
   },
   "engines": {
     "node": ">=18"
