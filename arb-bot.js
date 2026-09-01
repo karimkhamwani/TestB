@@ -33,6 +33,13 @@ function log(...args) {
 async function main() {
   const cfg = parseConfig({});
 
+  // Order-post latency: without keep-alive every POST pays a fresh TLS
+  // handshake (observed live: detect->ack 435-1547ms; edges die faster).
+  const http = require('node:http');
+  const https = require('node:https');
+  http.globalAgent = new http.Agent({ keepAlive: true, maxSockets: 32 });
+  https.globalAgent = new https.Agent({ keepAlive: true, maxSockets: 32 });
+
   if (cfg.mode === 'live' && !process.env.POLY_PRIVATE_KEY) {
     console.error('ARB_MODE=live refused: POLY_PRIVATE_KEY is not set (put it in .env on the trading box).');
     process.exit(1);
@@ -44,7 +51,7 @@ async function main() {
         `clip base ${cfg.detector.shares}, feeRateBps ${cfg.trader.feeRateBps}, rearm ${cfg.trader.rearmMs}ms`);
   }
   log(`gate: >= ${cfg.observer.gateEventsPerDay} events/day of >= ${cfg.observer.minEventMs}ms with ` +
-      `${cfg.detector.minDepth}x${cfg.detector.minDepth} depth, buySum<=${cfg.detector.buySum}, sellSum>=${cfg.detector.sellSum}`);
+      `${cfg.detector.minDepth}x${cfg.detector.minDepth} depth, buySum<=${cfg.detector.buySum}, sellSum>=${cfg.detector.sellSum}, fees=${cfg.feeMode}`);
 
   const observer = new Observer(cfg, log);
   const feed = new BookFeed(cfg.clobWs);
@@ -150,6 +157,7 @@ async function main() {
           // NEXT roll) because setMarket below already marks it current.
           if (strategy) await strategy.onWindowRoll(p.series, feed.books).catch((err) => log(`window-roll hook error ${p.series}: ${err.message}`));
         }
+        if (cfg.feeMode === 'zero') mkt.feeSchedule = null; // verified live 2026-09-01: fee_rate_bps=0 on all fills
         observer.setMarket(p.series, mkt);
         if (strategy) await strategy.onWindowStart(p.series, mkt).catch((err) => log(`window-start hook error ${p.series}: ${err.message}`));
         tokenToSeries.set(mkt.upToken, p.series);
