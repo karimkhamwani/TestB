@@ -183,10 +183,16 @@ async function tick() {
     }
     document.getElementById('series').innerHTML = t + '</table>';
 
-    let b = '<table><tr><th>series</th><th>window ends</th><th>age up</th><th>age down</th><th>fee</th></tr>';
+    let b = '<table><tr><th>series</th><th>ends</th><th>ask U/D</th><th>askSum</th><th>bid U/D</th><th>bidSum</th><th>age U/D ms</th></tr>';
     if (s) for (const [k,v] of Object.entries(s.series)) {
-      b += '<tr><td>' + k + '</td><td>' + v.windowEndsInSec + 's</td><td>' + (v.bookAgeMsUp ?? '—') +
-           '</td><td>' + (v.bookAgeMsDown ?? '—') + '</td><td>' + v.feeRate + '</td></tr>';
+      const buyHot = v.askSum != null && v.askSum <= 0.99;
+      const sellHot = v.bidSum != null && v.bidSum >= 1.01;
+      b += '<tr><td>' + k + '</td><td>' + v.windowEndsInSec + 's</td>' +
+           '<td>' + fmt(v.askUp,2) + '/' + fmt(v.askDown,2) + '</td>' +
+           '<td class="' + (buyHot ? 'pass' : '') + '">' + fmt(v.askSum,2) + '</td>' +
+           '<td>' + fmt(v.bidUp,2) + '/' + fmt(v.bidDown,2) + '</td>' +
+           '<td class="' + (sellHot ? 'pass' : '') + '">' + fmt(v.bidSum,2) + '</td>' +
+           '<td>' + (v.bookAgeMsUp ?? '—') + '/' + (v.bookAgeMsDown ?? '—') + '</td></tr>';
     }
     document.getElementById('books').innerHTML = b + '</table>';
 
