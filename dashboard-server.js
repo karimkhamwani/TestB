@@ -214,5 +214,5 @@ async function tick() {
     document.getElementById('events').innerHTML = e + '</table>';
   } catch (err) { /* dashboard keeps polling */ }
 }
-tick(); setInterval(tick, 2000);
+tick(); setInterval(tick, 1000);
 </script>`;

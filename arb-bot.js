@@ -241,7 +241,7 @@ async function main() {
     setInterval(guarded(refreshDiscovery), 5_000),
     setInterval(guarded(drainOutcomes), 10_000),
     setInterval(() => observer.sampleAll(feed.books), cfg.observer.sampleIntervalMs),
-    setInterval(() => { feedState = cfg.restPoll ? feedState : feed.state(); observer.writeStatus(feed.books, feedState, Date.now(), traderExtra()); }, 3_000),
+    setInterval(() => { feedState = cfg.restPoll ? feedState : feed.state(); observer.writeStatus(feed.books, feedState, Date.now(), traderExtra()); }, 1_000),
   ];
   if (cfg.restPoll) timers.push(setInterval(restPollOnce, 1_000));
 
