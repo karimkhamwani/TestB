@@ -118,6 +118,10 @@ async function main() {
     observer.onBookUpdate(series, feed.books);
     if (strategy) strategy.onBookUpdate(series, feed.books).catch((err) => log(`strategy error: ${err.message}`));
   });
+  feed.on('trade', (assetId, trade) => {
+    if (!strategy || !tokenToSeries.has(assetId)) return;
+    strategy.onTrade(assetId, trade, feed.books).catch((err) => log(`trade route error: ${err.message}`));
+  });
 
   // ---- discovery loop: keep each series pointed at its current window ----
   const parsed = cfg.series.map((s) => ({ series: s, ...gamma.parseSeries(s) }));
@@ -226,6 +230,15 @@ async function main() {
   const traderExtra = () => (strategy ? {
     mode: cfg.mode,
     trading: { venue: cfg.mode, ...strategy.stats() },
+    // The live maker quotes ONLY while this feed is up, so its state has to be
+    // visible: a silent user-ws failure looks exactly like "no opportunities".
+    userWs: userFeed ? {
+      connected: userFeed.connected,
+      lastState: userFeed.lastState || 'never-connected',
+      lastError: userFeed.lastError || null,
+      markets: userFeed.markets.length,
+      makerEnabled: strategy.maker ? strategy.maker.enabled : null,
+    } : null,
   } : { mode: cfg.mode });
 
   // Timer bodies do slow network work — never let invocations stack.
